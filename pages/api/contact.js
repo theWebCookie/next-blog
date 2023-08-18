@@ -15,10 +15,11 @@ async function handler(req, res) {
     };
 
     let client;
+
+    const connectionString = `mongodb+srv://${process.env.db_username}:${process.env.db_password}@${process.env.db_cluster}.kefqvdm.mongodb.net/${process.env.db_name}?retryWrites=true&w=majority`;
+
     try {
-      client = await MongoClient.connect(
-        `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.kefqvdm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
-      );
+      client = await MongoClient.connect(connectionString);
     } catch (error) {
       res.status(500).json({ message: 'Could not connect to database.' });
       return;
